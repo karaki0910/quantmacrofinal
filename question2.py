@@ -83,5 +83,7 @@ for il in range(NL):
         aplus[0, ia, il] = a[iaplus[0, ia, il]]
         v[0, ia, il] = reward[iaplus[0, ia, il]]
 
+
+#総税収、一人当たりの年金
 print(total_tax)
 print(p)

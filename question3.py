@@ -23,12 +23,12 @@ for il in range(NL):
 def util(cons, gamma):
     return max(cons, 1e-4)**(1.0 - gamma) / (1.0 - gamma)
 
-# 資産グリッド
+# グリッド
 a_l, a_u, NA = 0.0, 2.0, 100
 a = np.linspace(a_l, a_u, NA)
 JJ = 3  # 3期間
 
-# === 年金なしの計算 ===
+# 年金なしの計算 (pension=noの場合)
 v_no = np.zeros((JJ, NA, NL))
 aplus_no = np.zeros((JJ, NA, NL))
 
@@ -52,7 +52,7 @@ for il in range(NL):
         aplus_no[0, ia, il] = a[best]
         v_no[0, ia, il] = rewards[best]
 
-# === 年金ありの計算 ===
+# 年金ありの計算 (pension=yesの場合)
 total_tax = sum(mu_2[il] * l[il] * 0.3 for il in range(NL))
 pension = (1 + r) * total_tax
 
@@ -79,7 +79,7 @@ for il in range(NL):
         aplus_yes[0, ia, il] = a[best]
         v_yes[0, ia, il] = rewards[best]
 
-# === グラフ描画 ===
+# グラフを作成する
 plt.figure(figsize=(10, 6))
 for i, label in zip(range(3), ['Low', 'Mid', 'High']):
     plt.plot(a, aplus_no[0, :, i], linestyle='--', label=f'{label} (No Pension)', color='blue')
